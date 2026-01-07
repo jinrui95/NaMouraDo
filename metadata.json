@@ -1,0 +1,7 @@
+{
+  "name": "NaMouraDo",
+  "description": "A high-fidelity virtual sound machine with 9 trigger pads and 3 loop pads. Features internal master recording and tactile feedback.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
