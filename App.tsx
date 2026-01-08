@@ -103,7 +103,7 @@ const App: React.FC = () => {
     minHeight: '560px',
     resize: 'both',
     overflow: 'hidden',
-    containerType: 'size',
+    containerType: 'size' as any,
   };
 
   return (
@@ -114,7 +114,7 @@ const App: React.FC = () => {
       >
         <div className="flex-1 flex flex-col p-[clamp(1.5rem,4cqw,2.5rem)] min-h-0 overflow-hidden">
           
-          {/* Header Section - Height dynamic but capped */}
+          {/* Header Section */}
           <div className="flex items-center justify-between shrink-0 mb-[clamp(1rem,4cqh,2rem)] gap-4">
             <div className="flex flex-col min-w-0">
               <h1 className="text-[clamp(24px,7cqw,52px)] font-black text-slate-100 italic retro-70s-text leading-[1.1] truncate pb-2 pr-4">
@@ -155,7 +155,7 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          {/* Layer Loops Section - Scales proportionally */}
+          {/* Layer Loops Section */}
           <div className="flex flex-col flex-1 min-h-0 mb-[clamp(0.5rem,3cqh,1.5rem)]">
             <p className="text-[clamp(8px,1.6cqw,10px)] text-slate-500 font-bold uppercase tracking-[0.2em] mb-2 ml-2 shrink-0">Layer Loops</p>
             <div className="flex-1 grid grid-cols-3 gap-[clamp(0.5rem,3cqw,1.25rem)] bg-black/40 p-[clamp(0.5rem,3cqw,1.25rem)] rounded-[1.5rem] border border-slate-800/30 shadow-inner min-h-0">
@@ -181,7 +181,7 @@ const App: React.FC = () => {
             <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-slate-800/40 to-transparent" />
           </div>
 
-          {/* Sounds Matrix Section - Takes more space */}
+          {/* Sounds Matrix Section */}
           <div className="flex-[2.5] grid grid-cols-3 grid-rows-3 gap-[clamp(0.5rem,3cqw,1.25rem)] min-h-0">
             {triggerSlots.map((slot) => (
                 <Pad
@@ -196,7 +196,7 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Footer Area - Fixed height but relative to size */}
+        {/* Footer Area */}
         <div className="p-[clamp(0.75rem,2.5cqh,1.5rem)] flex justify-center items-center bg-[#1e1e20] shrink-0 border-t border-slate-800/20">
           <div className="flex gap-4">
              <div className="w-1.5 h-1.5 rounded-full bg-slate-900 shadow-inner" />
@@ -205,7 +205,6 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Resizer Hint */}
         {!isTouchDevice && (
           <div className="absolute bottom-1 right-1 w-3 h-3 pointer-events-none opacity-20">
             <svg viewBox="0 0 24 24" className="w-full h-full text-slate-400 fill-current">

@@ -8,6 +8,7 @@ class AudioService {
   private loopSources: Map<string, AudioBufferSourceNode> = new Map();
   private micStream: MediaStream | null = null;
   private micSource: MediaStreamAudioSourceNode | null = null;
+  private micMonitorGain: GainNode | null = null;
 
   constructor() {
     this.context = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -63,7 +64,15 @@ class AudioService {
       this.resumeContext();
       this.micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
       this.micSource = this.context.createMediaStreamSource(this.micStream);
-      this.micSource.connect(this.masterGain);
+      
+      // Monitor gain to control feedback if necessary, but here we connect directly
+      // to the masterGain so it's heard and recorded.
+      this.micMonitorGain = this.context.createGain();
+      this.micMonitorGain.gain.value = 1.0; 
+      
+      this.micSource.connect(this.micMonitorGain);
+      this.micMonitorGain.connect(this.masterGain);
+      
       return true;
     } catch (err) {
       console.error("Error accessing microphone:", err);
@@ -72,6 +81,10 @@ class AudioService {
   }
 
   public disableLiveMic() {
+    if (this.micMonitorGain) {
+      this.micMonitorGain.disconnect();
+      this.micMonitorGain = null;
+    }
     if (this.micSource) {
       this.micSource.disconnect();
       this.micSource = null;
